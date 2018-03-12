@@ -6,6 +6,19 @@
 
 
 //check that it's a file
+class Person{
+    constructor(data,i){
+        this.id = i; //int
+        this.name = data[2]; //strange
+        this.gender = data[4]; //string    //1
+        this.type = data[1];//string i.e english learner or speaker
+        this.year = data[7]; //int    //2
+        this.schedule; //array of array of strings i.e [[morning][evening],[evening],etc] //3
+        this.age; //int //4
+        this.major // string //5
+        this.hobbies;  //array of strings //6
+    }
+}
 
 class PalProfile extends React.Component
 {
@@ -28,16 +41,6 @@ class PalProfile extends React.Component
     
 }
 
-var buttonTest = document.querySelector('button');
-buttonTest.onclick = function () {
-        
-//        ReactDOM.render(
-//                People[0],
-//                document.getElementById('root')
-//        );
-//        boolean = 1;   
-};
-
 function readSingleFile(e) {
   var file = e.target.files[0];
   if (!file) {
@@ -46,14 +49,18 @@ function readSingleFile(e) {
   var reader = new FileReader();
   reader.onload = function(e) {
     var contents = e.target.result;
-    displayContents(contents);
+    parseData(contents);
   };
   reader.readAsText(file);
 }
 
-function displayContents(contents) {
+function parseData(contents) {
+  var people = contents.split("\n");
   var element = document.getElementById('file-content');
-  element.textContent = contents;
+  var allPeople = [];
+  for(i = 1; i < people.length; i++){
+      allPeople[i-1] = new Person(people[i].split("\t"));
+  }
 }
 
 document.getElementById('file-input')
