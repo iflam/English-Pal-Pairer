@@ -9,7 +9,7 @@
 class Person{
     constructor(data,i){
         this.id = i; //int
-        this.name = data[2]; //strange
+        this.name = data[2]; //string
         this.gender = data[4]; //string    //1
         this.type = data[1];//string i.e english learner or speaker
         this.year = data[7]; //int    //2
@@ -19,7 +19,8 @@ class Person{
                         //array of array of strings i.e [[morning][evening],[evening],etc] //3
         this.age = parseInt(data[5]); //int //4
         this.major = data[20]; // string //5
-        this.hobbies = data[21].split(", ");;  //array of strings //6
+        this.hobbies = data[21].split(", "); //array of strings //6
+        this.line = data.join('\t');
     };
 }
 
@@ -50,9 +51,11 @@ function readSingleFile(e) {
     return;
   }
   var reader = new FileReader();
+  var People;
   reader.onload = function(e) {
     var contents = e.target.result;
-    var People = parseData(contents);
+        People = parseData(contents);
+        displayContents(People);
   };
   reader.readAsText(file);
 }
@@ -65,6 +68,16 @@ function parseData(contents) {
       allPeople[i-1] = new Person(people[i].split("\t"),i   );
   }
   return allPeople;
+}
+
+function displayContents(contents){
+    var element = document.getElementById('file-content');
+    var s = "";
+    for(var i = 0; i < contents.length; i++){
+        var x = contents[i];
+        s+= contents[i].name + "\n";
+    }
+    element.textContent = s;
 }
 
 document.getElementById('file-input')
