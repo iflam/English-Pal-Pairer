@@ -13,11 +13,14 @@ class Person{
         this.gender = data[4]; //string    //1
         this.type = data[1];//string i.e english learner or speaker
         this.year = data[7]; //int    //2
-        this.schedule; //array of array of strings i.e [[morning][evening],[evening],etc] //3
-        this.age; //int //4
-        this.major // string //5
-        this.hobbies;  //array of strings //6
-    }
+        this.schedule = [data[13].split(", "),data[14].split(", "),data[15].split(", ")
+                        ,data[16].split(", "),data[17].split(", "),data[18].split(", ")
+                        ,data[19].split(", ")];
+                        //array of array of strings i.e [[morning][evening],[evening],etc] //3
+        this.age = parseInt(data[5]); //int //4
+        this.major = data[20]; // string //5
+        this.hobbies = data[21].split(", ");;  //array of strings //6
+    };
 }
 
 class PalProfile extends React.Component
@@ -49,7 +52,7 @@ function readSingleFile(e) {
   var reader = new FileReader();
   reader.onload = function(e) {
     var contents = e.target.result;
-    parseData(contents);
+    var People = parseData(contents);
   };
   reader.readAsText(file);
 }
@@ -58,9 +61,10 @@ function parseData(contents) {
   var people = contents.split("\n");
   var element = document.getElementById('file-content');
   var allPeople = [];
-  for(i = 1; i < people.length; i++){
-      allPeople[i-1] = new Person(people[i].split("\t"));
+  for(var i = 1; i < people.length; i++){
+      allPeople[i-1] = new Person(people[i].split("\t"),i   );
   }
+  return allPeople;
 }
 
 document.getElementById('file-input')
