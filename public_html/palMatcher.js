@@ -29,29 +29,35 @@ class PalProfile extends React.Component
 }
 
 var buttonTest = document.querySelector('button');
-var boolean = 0;
 buttonTest.onclick = function () {
-    if (boolean === 0) 
-    {
-        ReactDOM.render(
-                <div>
-                    <PalProfile firstName='Itai' lastName='Flam'/>
-                </div>,
-                document.getElementById('root')
-        );
-        boolean = 1;
-    }
-    else
-    {
-        ReactDOM.render(
-                'poop',
-                document.getElementById('root')
-        );
-        boolean = 0;
-    }
-    
+        
+//        ReactDOM.render(
+//                People[0],
+//                document.getElementById('root')
+//        );
+//        boolean = 1;   
+};
+
+function readSingleFile(e) {
+  var file = e.target.files[0];
+  if (!file) {
+    return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var contents = e.target.result;
+    displayContents(contents);
+  };
+  reader.readAsText(file);
 }
 
+function displayContents(contents) {
+  var element = document.getElementById('file-content');
+  element.textContent = contents;
+}
+
+document.getElementById('file-input')
+  .addEventListener('change', readSingleFile, false);
 
 
 var input = document.querySelector('input');
