@@ -51,6 +51,8 @@ class LinkedList{
     }
 }
 var selectedPerson;
+var selectedMatch1;
+var selectedMatch2;
 class Person{
     constructor(data,i){
         this.id = i; //int
@@ -150,12 +152,13 @@ function parseData(contents) {
 
 function displayContents(contents){
     var element = document.getElementById('file-content');
-    var s = "<ul>";
+    var s = "<table class='tab' id='dispTable'>\n<tr><th>Name</th>\n<th>Type</th>\n</tr>\n";
     for(var i = 0; i < contents.length; i++){
         var x = contents[i];
-        s+= '<li tabindex = "1">' + contents[i].name + "</li>\n";
+        s+= '<tr>\n<td>' + contents[i].name + "</td>\n";
+        s+= '<td>' + contents[i].type + "</td>\n</tr>";
     }
-    s+= "<ul>";
+    s+= "</table>";
     element.innerHTML = s;
 }
 
@@ -165,13 +168,6 @@ document.getElementById('file-input')
 //JQuery things that do things.
 
 //If person clicked, put that as selectedPerson
-$(function(){
-    $("#file-content").on('click','li',function (){
-        var element = document.getElementById('selected-person');
-        element.innerHTML = "Currently Selected: " + this.innerHTML;
-        selectedPerson = this.innerHTML;
-    });
-});
 
 //If 3 Matches selected, unselect 5 Matches.
 $("#3match").change(function() {
@@ -212,14 +208,45 @@ function processAlg(){
         return;
     }
     var topMatches = palMatchingAlgorithm (person, allPeople, matches);
-    var s = "Top " + matches + " Matches:\n<p><\p>\n<ul>";
+    var s = "Top " + matches + " Matches:\n<p><\p>\n\n\
+            <table class='tab' id='matchTable'>\n<tr><th>Name</th>\n<th>Type</th>\n</tr>\n";
     var currMatch = topMatches.head;
     while(currMatch){
-        s+= '<li tableindex = "2">' + currMatch.person.name + "</li>\n";
+        s+="<tr>\n";
+        s+= '<td>' + currMatch.person.name + "</td>\n"+
+            '<td>' + currMatch.person.type + "</td>\n";
+        s+="</tr>\n";
         currMatch = currMatch.next;
     }
-    s+= "</ul>";
+    s+= "</table>";
     var element = document.getElementById("matches");
     element.innerHTML = s;
 }
+
+//toggle table color
+$(document).on('click', 'tr', function() { 
+    var parent = $(this).closest('.tab');
+    for(var i = 0;i < allPeople.length ; i++){
+        var temp = $(parent).find('tr').eq(i);
+        if(temp.hasClass("clicked"))
+            temp.toggleClass("clicked");
+    }
+    $(this).toggleClass("clicked");
+    //Do work depending on which table:
+    var id = $(parent).attr('id');
+    if(id === 'dispTable'){
+        selectedPerson = $(this).find('td').eq(0).text();
+        var element = document.getElementById('selected-person');
+        element.innerHTML = "Currently Selected: " + selectedPerson;
+        element = document.getElementById('matches');
+        element.innerHTML = "";
+        element = document.getElementById('matched-person1');
+        element.innerHTML = "";
+    }
+    else if(id === 'matchTable'){
+        selectedMatch1 = $(this).find('td').eq(0).text();
+        var element = document.getElementById('matched-person1');
+        element.innerHTML = "Current Pair:</br>" + selectedPerson + "</br>And</br>" + selectedMatch1;
+    }
+});
 
