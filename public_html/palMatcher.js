@@ -26,25 +26,45 @@ class Person{
 }
 
 
-// Person to match, people availiable, top matches
+// Person to match, people availiable, number of matches to return
 function palMatchingAlgorithm (person, people, matches)
 {
-    compatiblePeople = [];
+    var compatiblePeople = [];
     //iterate for each person in the array and add them to the compatiblePeople
     for (i = 0; i< people.length;i++) 
     {
         if (person.type.localeCompare(people[i].type) === 0)
             continue;
-        //check if there are any schdule matches
+        //check if there are any schedule matches
+        var scheduleMatches = 0;
         
-        //handle gender
+        //initialize the weekly schedule array for the person to compare
+        var personScheduleTimes = new Array[7];
         
+        //initialize the temp array for the day to day chedule
+        var scheduleTimes = new Array[4]
+        
+        
+        scheduleMatches = 0;
+        //loop for each day in the week
+        for (i = 0; i < 7; i++)
+        {
+            //loop for each time slot during the day
+            //if there is a schedule match, then increment the schedule matches
+        }
+        //store the schedule matches somewhere
+        
+        
+        //handle gender, add weight to the gender
+        if (person.gender.localeCompare(people[i].gender) === 0)
+            continue;
         //handle year
-        
+        var yearDifference;
         //handle age
-        
+        var ageDifference;
         //handle hobbies
-        
+        var compatibleHobbies;
+        //loop though the original person's hobbies and 
     }
     
     //sort the pals
