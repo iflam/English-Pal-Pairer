@@ -11,6 +11,7 @@ const navigationBar = <nav>
                 <li><a href="PalMatcher.html">English Pal Matcher</a></li>
             </ul>
         </nav>;
+        
 ReactDOM.render(
         navigationBar,
         document.getElementById('navigation')

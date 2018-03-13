@@ -11,16 +11,6 @@ ReactDOM.render(
         document.getElementById('heading')
 );
 
-const pal = {
-    firstName: 'Itai',
-    lastName: 'Flam'
-};
-
-
-
-
-/*
-*/
 
 const about = <p>The English Pal Program aims to match an international student 
 with a native English speaker to help the international student enhance his/her 
