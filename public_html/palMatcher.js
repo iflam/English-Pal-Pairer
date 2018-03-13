@@ -25,6 +25,35 @@ class Person{
     };
 }
 
+
+// Person to match, people availiable, top matches
+function palMatchingAlgorithm (person, people, matches)
+{
+    compatiblePeople = [];
+    //iterate for each person in the array and add them to the compatiblePeople
+    for (i = 0; i< people.length;i++) 
+    {
+        if (person.type.localeCompare(people[i].type) === 0)
+            continue;
+        //check if there are any schdule matches
+        
+        //handle gender
+        
+        //handle year
+        
+        //handle age
+        
+        //handle hobbies
+        
+    }
+    
+    //sort the pals
+    
+    //return an array of the top matches
+}
+
+
+
 class PalProfile extends React.Component
 {
     constructor(props)
@@ -93,9 +122,4 @@ $(function(){
     });
 });
 
-var input = document.querySelector('input');
-var bob = 'hellow';
-ReactDOM.render(
-        input,
-        document.getElementById('test')
-        );
+
