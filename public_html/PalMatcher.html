@@ -15,6 +15,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="palStyle.css">
         <script type="text/babel" src="palMatcher.js"></script>
         <script type="text/babel" src="navigation.js"></script>
+        <script src="jquery-3.3.1.min.js"></script>
     </head>
     <body>
         <div id ="navigation" class="navigation"></div>
@@ -22,11 +23,9 @@ and open the template in the editor.
             <h1>Pal Matching Tool</h1>
             <input type="file" id="file-input" />
             <h3>Contents of the file:</h3>
-            <pre id="file-content"></pre>
-            <button>Submit!</button>
-            <div id='root'>TODO write content</div>
-            <div id="test"></div>
-            
+            <div id="file-content"></div>
+            <div id="selected-person"></div>
+            <button>Submit!</button>         
         </main>
     </body>
 </html>

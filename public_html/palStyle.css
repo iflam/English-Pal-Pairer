@@ -1,20 +1,52 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+/*Colors for use:
+Inner Sections
+Brown: #604314
+Yellow: #e5d379
+Outer Sections
+Brown: #4c3309
+Yellow: #efe5b1
 */
-/* 
-    Created on : Mar 11, 2018, 11:12:50 AM
-    Author     : Tiger
-*/
-
 main
 {
     float:left;
     margin-top: 0px;
     width: 50%;
 }
+body{
+    background-color: #efe5b1;
+    max-width: 960px;
+    margin:auto;
+}
 
+button{
+    border-radius: 8px;
+    background-color: #604314;
+    color: #e5d379;
+}
+button:hover{
+    background-color: #005d7c;
+}
+ul{
+    height:200px;
+    width:190px;
+    overflow-y: auto;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+li{
+    border-width:1px;
+    border-style: solid;
+    border-color: #604314;
+    background-color: #e5d379;
+    color:#604314;
+    
+}
+li:focus{
+    background-color: #604314;
+    color:#e5d379;
+}
 div.navigation
 {
     float: left;
@@ -23,17 +55,21 @@ div.navigation
     margin-top: 10px;
     margin-left: 0px;
 }
-
-ul
-{
-    
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
 div.max_width
 {
     float: left;
     text-align: justify;
+}
+
+/* divs and classes etc*/
+#selected-person{
+    border-style: solid;
+    border-width: 3px;
+    border-color: #604314;
+    background-color: #e5d379;
+    height: 30px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #604314;
+    text-align: center;
 }

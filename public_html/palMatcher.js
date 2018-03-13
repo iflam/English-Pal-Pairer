@@ -6,6 +6,7 @@
 
 
 //check that it's a file
+var selectedPerson;
 class Person{
     constructor(data,i){
         this.id = i; //int
@@ -72,21 +73,29 @@ function parseData(contents) {
 
 function displayContents(contents){
     var element = document.getElementById('file-content');
-    var s = "";
+    var s = "<ul>";
     for(var i = 0; i < contents.length; i++){
         var x = contents[i];
-        s+= contents[i].name + "\n";
+        s+= '<li tabindex = "1">' + contents[i].name + "</li>\n";
     }
-    element.textContent = s;
+    s+= "<ul>";
+    element.innerHTML = s;
 }
 
 document.getElementById('file-input')
   .addEventListener('change', readSingleFile, false);
 
+$(function(){
+    $("#file-content").on('click','li',function (){
+        var element = document.getElementById('selected-person');
+        element.innerHTML = "Currently Selected: " + this.innerHTML;
+        selectedPerson = this.innerHTML;
+    });
+});
 
 var input = document.querySelector('input');
 var bob = 'hellow';
 ReactDOM.render(
         input,
         document.getElementById('test')
-        )
+        );
