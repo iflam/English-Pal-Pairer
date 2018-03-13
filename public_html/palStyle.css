@@ -15,32 +15,47 @@ main
 body{
     background-color: #efe5b1;
     max-width: 960px;
-    margin:auto;
+    margin:auto;    
 }
 
 button{
+    border-style:solid;
+    border-color:#4c3309;
     border-radius: 8px;
     background-color: #604314;
     color: #e5d379;
+    padding: 5px;
+    font-size: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 button:hover{
     background-color: #005d7c;
+    border-radius: 8px;
+}
+button:selected{
+    background-color: white;
+    border-radius: 8px;
 }
 ul{
-    height:200px;
+    max-height: 200px;
     width:190px;
     overflow-y: auto;
     list-style-type: none;
     margin: 0;
     padding: 0;
     text-align: center;
+    overflow-x: hidden;
+    border-radius: 8px;
+    border-style: solid;
+    border-color: #4c3309;
 }
 li{
     border-width:1px;
     border-style: solid;
     border-color: #604314;
     background-color: #e5d379;
-    color:#604314;
+    color: #4c3309;
     
 }
 li:focus{
@@ -60,7 +75,22 @@ div.max_width
     float: left;
     text-align: justify;
 }
+label{
+    border-radius: 8px;
+}
+::-webkit-scrollbar {
+    width: 12px;
+    
+}
+::-webkit-scrollbar-thumb{
+    background-color:#4c3309;
+    border-radius: 10px;
+}
 
+::-webkit-scrollbar-track{
+    background-color:#ad9d24;
+
+}
 /* divs and classes etc*/
 #selected-person{
     border-style: solid;
@@ -72,4 +102,27 @@ div.max_width
     font-weight: bold;
     color: #604314;
     text-align: center;
+    border-radius: 8px;
+}
+label{
+    border-style: solid;
+    border-color: #604314;
+    padding:5px;
+    background-color: #e5d379;
+    
+}
+input[type="file"]::-webkit-file-upload-button{
+    border-style:inset;
+    background-color: #e5d379;
+    border-color: #604314;
+    border-radius:8px;
+    color:#4c3309;
+}
+input[type="file"]{
+    font-style: italic;
+    background-color: #e5d379;
+    border-style: ridge;
+    padding: 3px;
+    padding-right:8px;
+    padding-left: 8px;
 }

@@ -114,6 +114,9 @@ function displayContents(contents){
 document.getElementById('file-input')
   .addEventListener('change', readSingleFile, false);
 
+//JQuery things that do things.
+
+//If person clicked, put that as selectedPerson
 $(function(){
     $("#file-content").on('click','li',function (){
         var element = document.getElementById('selected-person');
@@ -122,4 +125,17 @@ $(function(){
     });
 });
 
+//If 3 Matches selected, unselect 5 Matches.
+$("#3match").change(function() {
+    if(document.getElementById("5match").checked) {
+        document.getElementById("5match").checked = false;
+    }
+});
+
+//If 5 Matches selected, unselect 3 Matches.
+$("#5match").change(function() {
+    if(document.getElementById("3match").checked) {
+        document.getElementById("3match").checked = false;
+    }
+});
 
