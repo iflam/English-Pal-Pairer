@@ -4,8 +4,52 @@
  * and open the template in the editor.
  */
 
+class Node {
+    constructor(num, person){
+        this.num = num;
+        this.person = person;
+        this.next = null;
+    }
+};
 
-//check that it's a file
+class LinkedList{
+    constructor(){
+        this.head = null;
+        this.length = 0;
+    }
+    
+    addPerson(num,person){
+        var x = new Node(num,person);
+        let prevNode = null;
+        let currP = this.head;
+        if(!currP){
+            this.head = x;
+            this.length++;
+            return;
+        }
+        while(currP){
+            if(currP.num < x.num){ //add the node
+                x.next = currP;
+                if(prevNode)
+                    prevNode.next = x;
+                else
+                    this.head = x;
+                this.length++;
+                return;
+            }
+            else if(!currP.next){ //reached end of list
+                currP.next = x;
+                this.length++;
+                return;
+            }
+            else{ //move on to next node
+                prevNode = currP;
+                currP = currP.next;
+            }
+        }
+        return; 
+    }
+}
 var selectedPerson;
 class Person{
     constructor(data,i){
@@ -27,72 +71,76 @@ class Person{
 
 
 // Person to match, people availiable, top matches
-function palMatchingAlgorithm (person, people, matches)
+function palMatchingAlgorithm (person, people, matchAmount)
 {
-    compatiblePeople = [];
+    var matches = new LinkedList();
     //iterate for each person in the array and add them to the compatiblePeople
-    for (i = 0; i< people.length;i++) 
+    for (var i = 0; i< people.length;i++) 
     {
-        if (person.type.localeCompare(people[i].type) === 0)
+        var comparePerson = people[i];
+        var num = 0;
+        if (person.type === comparePerson.type)
             continue;
-        //check if there are any schdule matches
-        
+        //check if there are any schedule matches
+        for(var day = 0; day < 7; day++){//Go through days
+            var currDay1 = person.schedule[day];
+            var currDay2 = comparePerson.schedule[day]
+            for(var time = 0; time < currDay1.length; time++){
+                //^^^Go through times for person
+                for(var p2Time = 0; p2Time < currDay2.length;p2Time++){
+                    //^^^Go through times for comparePerson
+                    var currTime1 = person.schedule[day][time];
+                    var currTime2 = comparePerson.schedule[day][p2Time];
+                    if(currTime1 === currTime2){
+                        num+=3;
+                    }
+                }
+            }
+        }
         //handle gender
-        
+        if(person.gender === people[i].gender){
+            num+=20;
+        }
         //handle year
-        
+        if(person.year === people[i].year){
+            num+=10;
+        }
         //handle age
-        
+        if(person.age === people[i].age){
+            num+=5;
+        }
         //handle hobbies
         
+        //add to list
+        matches.addPerson(num, comparePerson);  
     }
-    
-    //sort the pals
-    
     //return an array of the top matches
+    var topx = new LinkedList();
+    var curr = matches.head;
+    for(var i = 0; i < matchAmount; i++){
+        topx.addPerson(curr.num,curr.person);
+        curr = curr.next;
+    }
+    return topx;
 }
 
-
-
-class PalProfile extends React.Component
-{
-    constructor(props)
-    {
-        super (props);
-        this.state = {firstName: props.firstName,
-            lastName: props.lastName};
-    }
-    
-    render () 
-    {
-        return (
-                <div>
-                    <h2>Hello World!</h2>
-                    <h3>{this.state.firstName} {this.state.lastName}</h3>
-                </div>
-                );
-    }
-    
-}
-
+var allPeople;
 function readSingleFile(e) {
   var file = e.target.files[0];
   if (!file) {
     return;
   }
   var reader = new FileReader();
-  var People;
   reader.onload = function(e) {
     var contents = e.target.result;
-        People = parseData(contents);
-        displayContents(People);
+        allPeople = parseData(contents);
+        displayContents(allPeople);
   };
   reader.readAsText(file);
 }
 
 function parseData(contents) {
   var people = contents.split("\n");
-  var element = document.getElementById('file-content');
   var allPeople = [];
   for(var i = 1; i < people.length; i++){
       allPeople[i-1] = new Person(people[i].split("\t"),i   );
@@ -138,4 +186,40 @@ $("#5match").change(function() {
         document.getElementById("3match").checked = false;
     }
 });
+
+//if Go button is pressed:
+function processAlg(){
+    if(!selectedPerson){
+        alert("You must select a person to pair!");
+        return;
+    }
+    var person;
+    for(var i = 0; i < allPeople.length; i++){
+        if(selectedPerson === allPeople[i].name){
+            person = allPeople[i];
+            break;
+        }
+    }
+    var matches = 0;
+    if(document.getElementById("3match").checked){
+        matches = 3;
+    }
+    else if(document.getElementById("5match").checked){
+        matches = 5;
+    }
+    else{
+        alert("You must select how many matches to return!");
+        return;
+    }
+    var topMatches = palMatchingAlgorithm (person, allPeople, matches);
+    var s = "Top " + matches + " Matches:\n<p><\p>\n<ul>";
+    var currMatch = topMatches.head;
+    while(currMatch){
+        s+= '<li tableindex = "2">' + currMatch.person.name + "</li>\n";
+        currMatch = currMatch.next;
+    }
+    s+= "</ul>";
+    var element = document.getElementById("matches");
+    element.innerHTML = s;
+}
 
